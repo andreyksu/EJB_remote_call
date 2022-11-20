@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>ru.annikonenkov</groupId>
+	<artifactId>try-remote-call-ejb-cient</artifactId>
+	<packaging>jar</packaging>
+
+	<version>0.0.1-SNAPSHOT</version>
+	<name>client-side</name>
+	<description>Try to remote call ejb</description>
+
+	<properties>
+		<!-- The versions for BOMs, Dependencies and Plugins -->
+		<version.server.bom>27.0.0.Final</version.server.bom>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-ejb-client-bom</artifactId>
+			<version>${version.server.bom}</version>
+			<type>pom</type>
+			<!--
+			<scope>import</scope>
+			-->
+			<scope>compile</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>ru.annikonenkov</groupId>
+			<artifactId>try-remote-call-ejb-server</artifactId>
+			<version>${project.version}</version>
+			<type>ejb-client</type>
+			<!--
+			<type>ejb</type>
+			-->
+		</dependency>
+
+		<!-- importing the jakartaee8-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
+		<!--
+		<dependency>
+			<groupId>org.wildfly.bom</groupId>
+			<artifactId>wildfly-ee-with-tools</artifactId>
+			<version>${version.server.bom}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+		-->
+
+	</dependencies>
+
+
+	<build>
+		<plugins>
+			<!-- build standalone exe jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>ru.annikonenkov.ejb.FirstRemoteClient</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Multi-Release>true</Multi-Release>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+
+</project>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>ru.annikonenkov</groupId>
+		<artifactId>try-remote-call-ejb</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>try-remote-call-ejb-server</artifactId>
+	<packaging>ejb</packaging>
+
+	<name>try-remote-call-ejb - server</name>
+	<description>Try to remote call ejb</description>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.jboss.logging</groupId>
+			<artifactId>jboss-logging</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Замемена на jakarta.jakartaee-api -->
+		<!-- 
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>			
+			<version>8.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		-->
+
+		<!-- При добавлении этой аннтации эта - "jakarta.annotation-api" и эта - "jakarta.ejb-api" вроде как не нужны -->
+		<!--
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>${version.jakartaee}</version>
+			<scope>provided</scope>
+		</dependency>
+		-->
+
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>jakarta.ejb</groupId>
+			<artifactId>jakarta.ejb-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<finalName>${project.artifactId}</finalName>
+
+		<plugins>
+			<!-- it isn`t mandatory / seems not necessary -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>${version.of.java}</release>
+					<source>${version.of.java}</source>
+					<target>${version.of.java}</target>
+					<!--
+					<compilerArguments>
+						<endorseddirs>${endorsed.dir}</endorseddirs>
+					</compilerArguments>
+					-->
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<configuration>
+					<ejbVersion>3.2</ejbVersion>
+					<!-- this is false by default -->
+					<generateClient>true</generateClient>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+</project>
